@@ -58,10 +58,14 @@ Optional<ListAccountsEntity> acctDetails = repo.findById(accountNum);
 	
 	@PutMapping(path = "Accounts", consumes = "application/json", produces = "application/json")
 	public ResponseEntity updateAccount(@RequestBody ListAccountsEntity accountsEntity) {
-		String response = "";
+		
+		
+		UpdateResponse updateResponse=new UpdateResponse();
 			repo.save(accountsEntity);
-			response = "Account details updated successfully";
-			return ResponseEntity.ok(response);
+			updateResponse.setCode(HttpStatus.ACCEPTED.value());
+			updateResponse.setMessage("Account details updated successfully");
+			
+			return ResponseEntity.ok(updateResponse);
 
 		}
 
