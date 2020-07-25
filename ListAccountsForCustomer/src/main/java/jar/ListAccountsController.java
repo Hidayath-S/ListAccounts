@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,8 +40,25 @@ public class ListAccountsController {
 
 	}
 
-	@GetMapping(path = "Account/{accountNum}", produces = "application/json")
-	public Object getAcctDetails(@PathVariable long accountNum) {
+//	@GetMapping(path = "Account/{accountNum}", produces = "application/json")
+//	public Object getAcctDetails(@PathVariable long accountNum) {
+//		
+//		ErrorResponse er = new ErrorResponse();
+//		boolean status = repo.existsById(accountNum);
+//		if (status == false) {
+//			er.setErrorCode(HttpStatus.BAD_REQUEST.value());
+//			er.setErrorMessage("No account found with accountNumber=" + accountNum);
+//
+//			return er;
+//
+//		}
+//Optional<ListAccountsEntity> acctDetails = repo.findById(accountNum);
+//		return acctDetails;
+//
+//	}
+	
+	@GetMapping(path = "Account", produces = "application/json")
+	public Object getAcctDetailsByAcctNum(@RequestParam long accountNum) {
 		
 		ErrorResponse er = new ErrorResponse();
 		boolean status = repo.existsById(accountNum);
@@ -55,7 +73,6 @@ Optional<ListAccountsEntity> acctDetails = repo.findById(accountNum);
 		return acctDetails;
 
 	}
-	
 	@PutMapping(path = "Accounts", consumes = "application/json", produces = "application/json")
 	public ResponseEntity updateAccount(@RequestBody ListAccountsEntity accountsEntity) {
 		
